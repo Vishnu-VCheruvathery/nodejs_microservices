@@ -1,5 +1,6 @@
 describe("ProductService", () => {
     describe("CreateProduct", () => {
+        //validation
         test("validate user inputs", () => {
 
         })
