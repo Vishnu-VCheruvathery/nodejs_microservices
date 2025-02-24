@@ -1,0 +1,63 @@
+name: Deploy on QA
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  deploy_on_qa:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v2
+      
+      - name: Create customer Env file
+        working-directory: ./customer
+        run: |
+          touch .env
+          echo APP_SECRET ='jg_youtube_tutorial' >> .env
+          echo MONGODB_URI='mongodb://nosql-db:27017/amazon_demo_products?retryWrites=true&w=majority' >> .env
+          echo MSG_QUEUE_URL='amqps://mbnfqmsw:2Pag-zXcWlEOeTL9BFPOcA7ScobzH8UL@fuji.lmq.cloudamqp.com/mbnfqmsw' >> .en
+          echo EXCHANGE_NAME=ONLINE_STORE >> .env
+          echo PORT=8001 >> .env
+          cat .env
+
+      - name: Create Products Env file
+        working-directory: ./products
+        run: |
+          touch .env
+          echo APP_SECRET ='jg_youtube_tutorial' >> .env
+          echo MONGODB_URI='mongodb://nosql-db:27017/amazon_demo_products?retryWrites=true&w=majority' >> .env
+          echo MSG_QUEUE_URL='amqps://mbnfqmsw:2Pag-zXcWlEOeTL9BFPOcA7ScobzH8UL@fuji.lmq.cloudamqp.com/mbnfqmsw' >> .env
+          echo EXCHANGE_NAME=ONLINE_STORE >> .env
+          echo PORT=8002 >> .env
+          cat .env
+          
+      - name: Create shopping Env file
+        working-directory: ./shopping
+        run: |
+          touch .env
+          echo APP_SECRET ='jg_youtube_tutorial' >> .env
+          echo MONGODB_URI='mongodb://nosql-db:27017/amazon_demo_products?retryWrites=true&w=majority' >> .env
+          echo MSG_QUEUE_URL='amqps://mbnfqmsw:2Pag-zXcWlEOeTL9BFPOcA7ScobzH8UL@fuji.lmq.cloudamqp.com/mbnfqmsw' >> .env
+          echo EXCHANGE_NAME=ONLINE_STORE >> .env
+          echo PORT=8003 >> .env
+          cat .env
+          
+      - name: Generate deployment package
+        run: |
+          zip -r deploy.zip . -x '*.git'
+      
+      # - name: Deploy on Elastic beanstalk QA Env
+      #   uses: einaregilsson/beanstalk-deploy@v20
+      #   with:
+      #     aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     application_name: youtube-ms
+      #     environment_name: Youtube-ms-env
+      #     version_label: "ver-${{ github.sha }}"
+      #     region: eu-central-1
+      #     deployment_package: deploy.zip
