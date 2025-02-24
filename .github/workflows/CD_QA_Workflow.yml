@@ -51,13 +51,13 @@ jobs:
         run: |
           zip -r deploy.zip . -x '*.git'
       
-      # - name: Deploy on Elastic beanstalk QA Env
-      #   uses: einaregilsson/beanstalk-deploy@v20
-      #   with:
-      #     aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     application_name: youtube-ms
-      #     environment_name: Youtubems-env
-      #     version_label: "ver-${{ github.sha }}"
-      #     region: eu-central-1
-      #     deployment_package: deploy.zip
+      - name: Deploy on Elastic beanstalk QA Env
+        uses: einaregilsson/beanstalk-deploy@v20
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: youtube-ms
+          environment_name: Youtubems-env
+          version_label: "ver-${{ github.sha }}"
+          region: eu-central-1
+          deployment_package: deploy.zip
