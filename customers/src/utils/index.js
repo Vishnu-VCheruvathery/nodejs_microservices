@@ -4,6 +4,11 @@ const amqplib = require('amqplib')
 const { APP_SECRET, QUEUE_NAME, MESSAGE_BROKER_URL, EXCHANGE_NAME, CUSTOMER_BINDING_KEY } = require("../config");
 
 // Utility functions
+module.exports.GenerateSalt = async () => {
+  return await bcrypt.genSalt();
+};
+
+
 module.exports.GeneratePassword = async (password) => {
   return await bcrypt.hash(password, 10); // 10 salt rounds
 };

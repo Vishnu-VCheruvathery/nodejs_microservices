@@ -5,6 +5,11 @@ const dns = require("dns");
 const { APP_SECRET,EXCHANGE_NAME, MESSAGE_BROKER_URL, QUEUE_NAME} = require("../config");
 
 // Utility functions
+module.exports.GenerateSalt = async () => {
+  return await bcrypt.genSalt();
+};
+
+
 module.exports.GeneratePassword = async (password) => {
   return await bcrypt.hash(password, 10); // 10 salt rounds
 };
