@@ -15,12 +15,12 @@ jobs:
         uses: actions/checkout@v2
       
       - name: Create customer Env file
-        working-directory: ./customers
+        working-directory: ./customer
         run: |
           touch .env
-          echo APP_SECRET ='jg_youtube_tutorial' >> .env
-          echo MONGODB_URI='mongodb://nosql-db:27017/amazon_demo_products?retryWrites=true&w=majority' >> .env
-          echo MSG_QUEUE_URL='amqps://mbnfqmsw:2Pag-zXcWlEOeTL9BFPOcA7ScobzH8UL@fuji.lmq.cloudamqp.com/mbnfqmsw' >> .en
+          echo APP_SECRET=${{ secrets.QA_APP_SECRET }} >> .env
+          echo MONGODB_URI=${{ secrets.QA_CUSTOMER_DB_URL }} >> .env
+          echo MSG_QUEUE_URL=${{ secrets.QA_MSG_QUEUE_URL }} >> .env
           echo EXCHANGE_NAME=ONLINE_STORE >> .env
           echo PORT=8001 >> .env
           cat .env
@@ -29,9 +29,9 @@ jobs:
         working-directory: ./products
         run: |
           touch .env
-          echo APP_SECRET ='jg_youtube_tutorial' >> .env
-          echo MONGODB_URI='mongodb://nosql-db:27017/amazon_demo_products?retryWrites=true&w=majority' >> .env
-          echo MSG_QUEUE_URL='amqps://mbnfqmsw:2Pag-zXcWlEOeTL9BFPOcA7ScobzH8UL@fuji.lmq.cloudamqp.com/mbnfqmsw' >> .env
+          echo APP_SECRET=${{ secrets.QA_APP_SECRET }} >> .env
+          echo MONGODB_URI=${{ secrets.QA_PRODUCTS_DB_URL }} >> .env
+          echo MSG_QUEUE_URL=${{ secrets.QA_MSG_QUEUE_URL }} >> .env
           echo EXCHANGE_NAME=ONLINE_STORE >> .env
           echo PORT=8002 >> .env
           cat .env
@@ -40,9 +40,9 @@ jobs:
         working-directory: ./shopping
         run: |
           touch .env
-          echo APP_SECRET ='jg_youtube_tutorial' >> .env
-          echo MONGODB_URI='mongodb://nosql-db:27017/amazon_demo_products?retryWrites=true&w=majority' >> .env
-          echo MSG_QUEUE_URL='amqps://mbnfqmsw:2Pag-zXcWlEOeTL9BFPOcA7ScobzH8UL@fuji.lmq.cloudamqp.com/mbnfqmsw' >> .env
+          echo APP_SECRET=${{ secrets.QA_APP_SECRET }} >> .env
+          echo MONGODB_URI=${{ secrets.QA_SHOPPING_DB_URL }} >> .env
+          echo MSG_QUEUE_URL=${{ secrets.QA_MSG_QUEUE_URL }} >> .env
           echo EXCHANGE_NAME=ONLINE_STORE >> .env
           echo PORT=8003 >> .env
           cat .env
@@ -57,7 +57,7 @@ jobs:
       #     aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
       #     aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       #     application_name: youtube-ms
-      #     environment_name: Youtube-ms-env
+      #     environment_name: Youtubems-env
       #     version_label: "ver-${{ github.sha }}"
       #     region: eu-central-1
       #     deployment_package: deploy.zip
