@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v2
       
       - name: Create customer Env file
-        working-directory: ./customer
+        working-directory: ./customers
         run: |
           touch .env
           echo APP_SECRET ='jg_youtube_tutorial' >> .env
